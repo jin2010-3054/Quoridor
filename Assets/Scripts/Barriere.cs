@@ -24,6 +24,14 @@ public class Barriere : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+        initialPosition = transform.position;
+        mDragPlane = new Plane(Vector3.up, transform.position);
+    }
+
+    private void OnMouseDrag()
+    {
+
         int selectedPlayer = GMSc.selectedPlayer;
 
         // プレイヤー1のターンのときは barrier_p1 しか動かせない
@@ -35,12 +43,6 @@ public class Barriere : MonoBehaviour
             return;
         }
 
-        initialPosition = transform.position;
-        mDragPlane = new Plane(Vector3.up, transform.position);
-    }
-
-    private void OnMouseDrag()
-    {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         float planDist;
         mDragPlane.Raycast(camRay, out planDist);
