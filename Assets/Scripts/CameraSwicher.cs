@@ -7,35 +7,34 @@ public class CameraSwicher : MonoBehaviour
     public Transform tr1;
     public Transform tr2;
 
+    [HideInInspector] public bool isMoving = false; // ’Ç‰Á
 
     public void switchCamera(int camera)
     {
         Transform dest = (camera == 1) ? tr1 : tr2;
-        StartCoroutine(move(transform.position, dest.position));
-        StartCoroutine(rotate(transform.rotation, dest.rotation));
+        StartCoroutine(MoveAndRotate(dest));
     }
 
-    IEnumerator move(Vector3 start, Vector3 end)
+    private IEnumerator MoveAndRotate(Transform dest)
     {
-        float totalMoveTime = 1f;
-        float currentMoveTime = 0f;
-        while (Vector3.Distance(transform.position, end) > 0)
-        {
-            currentMoveTime += Time.deltaTime;
-            transform.position = Vector3.Lerp(start, end, currentMoveTime / totalMoveTime);
-            yield return null;
-        }
-    }
+        isMoving = true;
 
-    IEnumerator rotate(Quaternion start, Quaternion end)
-    {
+        // ˆÚ“®
+        Vector3 startPos = transform.position;
+        Quaternion startRot = transform.rotation;
         float totalMoveTime = 1f;
-        float currentMoveTime = 0f;
-        while (Quaternion.Angle(transform.rotation, end) != 0)
+        float t = 0f;
+
+        while (t < totalMoveTime)
         {
-            currentMoveTime += Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(start, end, currentMoveTime / totalMoveTime);
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPos, dest.position, t / totalMoveTime);
+            transform.rotation = Quaternion.Lerp(startRot, dest.rotation, t / totalMoveTime);
             yield return null;
         }
+
+        transform.position = dest.position;
+        transform.rotation = dest.rotation;
+        isMoving = false;
     }
 }

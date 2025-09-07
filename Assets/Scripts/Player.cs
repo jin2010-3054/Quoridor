@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
 
     public List<Box> GetPossibleBoxes()
     {
-
         previeusPossibleBoxes = possibleBoxes;
         possibleBoxes.Clear();
 
@@ -29,53 +28,53 @@ public class Player : MonoBehaviour
         RaycastHit hitRight;
         RaycastHit hitLeft;
 
+        // ‘O
         if (Physics.Raycast(transform.position - transform.up + transform.forward * 0.06f, transform.TransformDirection(Vector3.forward), out hitFront, 1f))
         {
-            if ((hitFront.transform.tag == "b1")||(hitFront.transform.tag =="b2"))
+            if ((hitFront.transform.tag == "b1") || (hitFront.transform.tag == "b2"))
             {
-
             }
             else if ((hitFront.transform.tag == "box" || hitFront.transform.tag == "finalBox") &&
-                Vector3.Distance(hitFront.transform.position, opponent.transform.position) > 1f)
+                     Vector3.Distance(hitFront.transform.position, opponent.transform.position) > 1f)
             {
                 possibleBoxes.Add(hitFront.transform.GetComponent<Box>());
             }
         }
 
+        // Œã
         if (Physics.Raycast(transform.position - transform.up - transform.forward * 0.06f, transform.TransformDirection(-Vector3.forward), out hitBack, 1f))
         {
-            if ((hitFront.transform.tag == "b1") || (hitFront.transform.tag == "b2"))
+            if ((hitBack.transform.tag == "b1") || (hitBack.transform.tag == "b2"))
             {
-
             }
             else if (hitBack.transform.tag == "box" &&
-                Vector3.Distance(hitBack.transform.position, opponent.transform.position) > 1f)
+                     Vector3.Distance(hitBack.transform.position, opponent.transform.position) > 1f)
             {
                 possibleBoxes.Add(hitBack.transform.GetComponent<Box>());
             }
         }
 
+        // ‰E
         if (Physics.Raycast(transform.position - transform.up + transform.right * 0.06f, transform.TransformDirection(Vector3.right), out hitRight, 1f))
         {
-            if ((hitFront.transform.tag == "b1") || (hitFront.transform.tag == "b2"))
+            if ((hitRight.transform.tag == "b1") || (hitRight.transform.tag == "b2"))
             {
-
             }
             else if (hitRight.transform.tag == "box" &&
-                Vector3.Distance(hitRight.transform.position, opponent.transform.position) > 1f)
+                     Vector3.Distance(hitRight.transform.position, opponent.transform.position) > 1f)
             {
                 possibleBoxes.Add(hitRight.transform.GetComponent<Box>());
             }
         }
 
+        // ¶
         if (Physics.Raycast(transform.position - transform.up - transform.right * 0.06f, transform.TransformDirection(-Vector3.right), out hitLeft, 1f))
         {
-            if ((hitFront.transform.tag == "b1") || (hitFront.transform.tag == "b2"))
+            if ((hitLeft.transform.tag == "b1") || (hitLeft.transform.tag == "b2"))
             {
-
             }
             else if (hitLeft.transform.tag == "box" &&
-                Vector3.Distance(hitLeft.transform.position, opponent.transform.position) > 1f)
+                     Vector3.Distance(hitLeft.transform.position, opponent.transform.position) > 1f)
             {
                 possibleBoxes.Add(hitLeft.transform.GetComponent<Box>());
             }

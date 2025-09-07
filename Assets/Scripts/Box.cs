@@ -30,5 +30,16 @@ public class Box : MonoBehaviour
                 gameManager.SwitchPlayer();
             }
         }
+
+        if (FindObjectOfType<CameraSwicher>().isMoving)
+            return;
+
+        player = gameManager.GetPlayer();
+
+        if (player.GetPossibleBoxes().Contains(this))
+        {
+            player.MoveToPosition(transform);
+            gameManager.SwitchPlayer();
+        }
     }
 }
